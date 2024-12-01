@@ -5,27 +5,51 @@ class Solution(object):
         :type t: str
         :rtype: bool
         """
-        if len(s) != len(t):
-            return False
+        mapST , mapTS  ={} , {}
+
+          # iteration in two arrays
+
+        for c1 ,c2 in zip(s,t):
+            if ((c1 in mapST and mapST[c1] != c2 ) or (c2 in mapTS and mapTS[c2] != c1 )):
+                return False 
+            mapST[c1] = c2 
+    
+            mapTS[c2] = c1 
+          
+
+        return True 
+           
+
+
         
-        char_mapping = {}
+
+
+
+
+
+
+
+        # if len(s) != len(t):
+        #     return False
+        
+        # char_mapping = {}
         
         
-        result = ""
+        # result = ""
         
-        for i in range(len(s)):
-            if s[i] in char_mapping.keys():
-                result = result + char_mapping[s[i]]
+        # for i in range(len(s)):
+        #     if s[i] in char_mapping.keys():
+        #         result = result + char_mapping[s[i]]
                 
-                if result[i] != t[i]:
-                    return False
+        #         if result[i] != t[i]:
+        #             return False
                 
-            else:
-                if t[i] in char_mapping.values():
-                    return False
-                char_mapping[s[i]] = t[i] 
-                result = result + t[i]
+        #     else:
+        #         if t[i] in char_mapping.values():
+        #             return False
+        #         char_mapping[s[i]] = t[i] 
+        #         result = result + t[i]
             
-        return True
+        # return True
             
         
