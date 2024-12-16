@@ -1,9 +1,6 @@
-class Solution(object):
-    def maxSubArray(self, nums):
-        """
-        :type nums: List[int]
-        :rtype: int
-        """
+class Solution:
+    def maxSubArray(self, nums: List[int]) -> int:
+        
         max_subarray = nums[0]
         current_sum = 0
         
