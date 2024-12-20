@@ -16,7 +16,10 @@ class Solution:
                 if grid[r][c] == 2:
                     q.append([r, c])
 
-        directions = [[0, 1], [0, -1], [1, 0], [-1, 0]]
+        directions = [[0, 1],  # Right
+                      [0, -1], # Left
+                      [1, 0],  # Down
+                      [-1, 0]] # Up 
 
         # BFS to rot oranges
         while q and fresh > 0:
