@@ -2,7 +2,6 @@ class Solution:
     def combinationSum3(self, k: int, n: int) -> List[List[int]]:
         candidates=list(range(1,10))
         res = []
-
         def dfs(i,cur,k,total):
             # base case 1 : total is reached
             if total == n and len(cur)==k :
@@ -13,6 +12,7 @@ class Solution:
                 return 
 
             cur.append(candidates[i])
+
             dfs(i+1,cur,k,total+candidates[i])
 
             cur.pop()
