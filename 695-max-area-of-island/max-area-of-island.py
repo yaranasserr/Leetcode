@@ -2,39 +2,27 @@ from typing import List
 
 class Solution:
     def maxAreaOfIsland(self, grid: List[List[int]]) -> int:
-        if not grid:
-            return 0 
-
         rows = len(grid)
         columns = len(grid[0])
-        islands = {}  # Dictionary to store islands and their coordinates
-        count = 0 
+        maximum = 0
 
-        def dfs(r, c, island_id):
+        def dfs(r, c):
+            # Base case: Out of bounds or water cell
             if r < 0 or c < 0 or r >= rows or c >= columns or grid[r][c] == 0:
-                return 
+                return 0
 
-           
-            grid[r][c] = 0 
+            # Mark the cell as visited
+            grid[r][c] = 0
 
-            # Add the coordinate to the current island
-            islands[island_id].append((r, c))
-
-            dfs(r + 1, c, island_id)
-            dfs(r - 1, c, island_id)
-            dfs(r, c + 1, island_id)
-            dfs(r, c - 1, island_id)
+            # Recursively calculate the area of the island
+            return 1 + dfs(r, c + 1) + dfs(r, c - 1) + dfs(r + 1, c) + dfs(r - 1, c)
 
         for i in range(rows):
             for j in range(columns):
-                if grid[i][j] == 1:  
-                    count += 1
-                   
-                    islands[count] = []
-                
-                    dfs(i, j, count)
-        if not islands :
-            return 0
+                if grid[i][j] == 1:
+                    # Calculate the area of the current island
+                    area = dfs(i, j)
+                    # Update the maximum area
+                    maximum = max(area, maximum)
 
-        max_length = max(len(value) for value in islands.values())
-        return max_length
+        return maximum
