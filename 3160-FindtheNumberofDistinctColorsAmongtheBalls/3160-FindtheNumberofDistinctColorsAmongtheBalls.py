@@ -1,27 +1,28 @@
 class Solution:
     def queryResults(self, limit: int, queries: List[List[int]]) -> List[int]:
         ball_color = {}  # Maps each ball to its current color
-        color_set = {}   # Maps each color to the set of balls with that color
+        color_set = {}   # Maps each color to the set of balls assigned that color
         result = []
-        
-        for ball, color in queries:
-            # If the ball was already colored, remove it from its previous color set
-            if ball in ball_color:
-                prev_color = ball_color[ball]
-                color_set[prev_color].remove(ball)
-                if not color_set[prev_color]:  # Remove the color if no balls remain
+
+        for i, c in queries:
+            # If the ball already has a color, remove it from the previous color's set
+            if i in ball_color:
+                prev_color = ball_color[i]
+                color_set[prev_color].remove(i)
+                if not color_set[prev_color]:  # Remove color if no balls remain
                     del color_set[prev_color]
 
-            # Assign the new color to the ball
-            ball_color[ball] = color
-            if color not in color_set:
-                color_set[color] = set()
-            color_set[color].add(ball)
+            # Assign the new color
+            ball_color[i] = c
+            if c not in color_set:
+                color_set[c] = set()
+            color_set[c].add(i)
 
-            # Store the count of distinct colors
+            # The number of distinct colors is simply the size of color_set
             result.append(len(color_set))
 
         return result
+
         
         # mapping = {i:[] for i in range(limit+1)}
         # colors = {j:[] for j in range(limit+1)}
