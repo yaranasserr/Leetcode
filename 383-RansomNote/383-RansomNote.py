@@ -9,7 +9,11 @@ class Solution:
         freq1=freq(ransomNote)
         freq2=freq(magazine)
 
-        return all(freq1[char] <= freq2.get(char, 0) for char in freq1)
+        for char in freq1:
+            if freq1[char] > freq2.get(char, 0):  # If not enough letters in magazine
+                return False
+
+        return True
       
                 
   
