@@ -1,20 +1,24 @@
 class Solution:
     def minDistance(self, word1: str, word2: str) -> int:
-        # Initialize the cache with dimensions len(word1)+1 x len(word2)+1
-        cache = [[float("inf")] * (len(word2) + 1) for _ in range(len(word1) + 1)]
-        
-        # Fill the base cases for the cache
-        for j in range(len(word2) + 1):
-            cache[len(word1)][j] = len(word2) - j
-        for i in range(len(word1) + 1):
-            cache[i][len(word2)] = len(word1) - i
-        
-        # Fill the cache using bottom-up dynamic programming
-        for i in range(len(word1) - 1, -1, -1):
-            for j in range(len(word2) - 1, -1, -1):
-                if word1[i] == word2[j]:
-                    cache[i][j] = cache[i + 1][j + 1]
+        one = len(word1)
+        two = len(word2)
+        dp =[[0]*(two+1) for _ in range(one+1)]
+        # base case empty w2 and w1 is full , last column 
+        for r in range(one+1):
+            dp[r][two] = one - r 
+
+        # base case empty w1 and w2 is full , last row 
+        for c in range(two+1):
+            dp[one][c]=two - c 
+
+        for i in range(one-1,-1,-1):
+            for j in range(two-1,-1,-1):
+                # if they are equal skip 
+                if word1[i]==word2[j]:
+                    # move diagonal 
+                    dp[i][j]= dp[i+1][j+1]
                 else:
-                    cache[i][j] = 1 + min(cache[i + 1][j], cache[i][j + 1], cache[i + 1][j + 1])
-        # min(insert,delete,replace)
-        return cache[0][0]
+                    dp[i][j]= 1+min(dp[i][j+1],dp[i+1][j],dp[i+1][j+1])
+        return dp[0][0]
+
+ 
