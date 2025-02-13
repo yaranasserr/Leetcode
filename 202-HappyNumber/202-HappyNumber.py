@@ -1,11 +1,16 @@
 class Solution:
-    def twoSum(self, nums: List[int], target: int) -> List[int]:
-        num_index= {} # n: key , value : index
-        for i , n in enumerate(nums):
-            diff = target - n
-            if diff in num_index:
-                return[num_index[diff],i]
-            num_index[n] = i # add n as key and i as value 
+    def isHappy(self, n: int) -> bool:
+        #int(digit) for digit in str(num)
+        hashmap={}
+        res = 0
+        def op(num):
+            op = sum((int(digit))**2 for digit in str(num))
+            return op 
 
-       
-         
+        
+        while n!= 1 and n not in hashmap :
+            next_val = op(n)
+            hashmap[n] = next_val
+            n=next_val
+
+        return n == 1
