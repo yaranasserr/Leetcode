@@ -5,26 +5,16 @@ class Solution(object):
         :type t: str
         :rtype: bool
         """
+        def freq(word):
+            freq= {}
+            for w in word :
+                freq[w] = freq.get(w, 0) + 1 
+            return freq
+
+    
+
+        freqs=freq(s)
+        freqt=freq(t)
+        return freqs==freqt
         
-        if len(s) != len(t):
-            return False
-        
-        s_dict = {}
-        t_dict = {}
-        
-        for i in range(len(s)):
-            if s[i] in s_dict.keys():
-                s_dict[s[i]] += 1
-            else:
-                s_dict[s[i]] = 1
-                
-            if t[i] in t_dict.keys():
-                t_dict[t[i]] += 1
-            else:
-                t_dict[t[i]] = 1
-        
-        if t_dict == s_dict:
-            return True
-        
-        return False
-        
+   
