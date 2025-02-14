@@ -1,32 +1,29 @@
 class Solution:
     def minReorder(self, n: int, connections: List[List[int]]) -> int:
-        # Initialize the set of edges and adjacency list
         edges = {(a, b) for a, b in connections}
-        neighbours = {city: [] for city in range(n)}
-        visit = set()
-        changes = 0
+        # {(0, 1), (4, 0), (2, 3), (4, 5), (1, 3)}
+        # Time O(n) Space O(n)
+        neis = {city :[] for city in range(n)}
+        visit= set()
+        changes = 0 
+        # adjacency list 
+        for a , b in connections:
+            neis[a].append(b)
+            neis[b].append(a)
 
-        # Build the adjacency list
-        for a, b in connections:
-            neighbours[a].append(b)
-            neighbours[b].append(a)
-
-        # Depth-first search (DFS) function
         def dfs(city):
-            nonlocal edges, neighbours, visit, changes
-
-            # Visit all the neighboring cities
-            for neighbour in neighbours[city]:
-                if neighbour in visit:
+            nonlocal edges , neis , visit,changes
+            for ne in neis[city]:
+                if ne in visit :
                     continue
-                # If the edge (city, neighbour) is directed, we need to increment changes
-                if (city, neighbour) in edges:
-                    changes += 1
-                visit.add(neighbour)
-                dfs(neighbour)
+                if (ne,city) not in edges :
+                    changes +=1
+                visit.add(ne)
+                dfs(ne)
 
-        # Start DFS from city 0
         visit.add(0)
         dfs(0)
         
         return changes
+
+
