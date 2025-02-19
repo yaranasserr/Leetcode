@@ -23,21 +23,16 @@ class Solution:
             return head
 
         # Step 3: Use two-pointer technique
-        slow = head
-        fast = head
-
+        cur = head 
+      
         # Move fast k steps ahead
-        for _ in range(k):
-            fast = fast.next
+        for i in range(length-k-1):
+            cur = cur.next 
+        new_head=cur.next
+        cur.next = None
 
-        # Move both slow and fast until fast reaches the last node
-        while fast.next:
-            slow = slow.next
-            fast = fast.next
-
-        # Step 4: Rotate the list
-        new_head = slow.next
-        slow.next = None  # Break the link
-        fast.next = head  # Connect the tail to the original head
-
+        # be the beginning
+        tail.next = head 
         return new_head
+
+ 
