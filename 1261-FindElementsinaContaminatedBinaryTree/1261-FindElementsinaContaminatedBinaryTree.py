@@ -1,27 +1,25 @@
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class FindElements:
+    def __init__(self, root: TreeNode):
+        self.seen = set()
+        self.dfs(root, 0)
 
-   def __init__(self, root: Optional[TreeNode]):
-       self.root = root
+    def find(self, target: int) -> bool:
+        return target in self.seen
 
-   def find(self, target: int) -> bool:
-       country_road = []
-       cur = target
-       while cur:
-           if cur & 1:
-               cur = (cur - 1) // 2
-               country_road.append(0)
-           else:
-               cur = (cur - 2) // 2
-               country_road.append(1)
-       
-       take_me_home = True
-       dum = self.root
-       while country_road:
-           direct = country_road.pop()
-           if not [dum.left, dum.right][direct]:
-               take_me_home = False
-               break
-           
-           dum = [dum.left, dum.right][direct]
-       
-       return take_me_home
+    def dfs(self, current_node, current_value):
+        if current_node is None:
+            return
+        # visit current node by adding its value to seen
+        self.seen.add(current_value)
+        self.dfs(current_node.left, current_value * 2 + 1)
+        self.dfs(current_node.right, current_value * 2 + 2)
+
+# Your FindElements object will be instantiated and called as such:
+# obj = FindElements(root)
+# param_1 = obj.find(target)
