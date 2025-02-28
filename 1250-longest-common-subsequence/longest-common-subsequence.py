@@ -1,20 +1,54 @@
 class Solution:
     def longestCommonSubsequence(self, text1: str, text2: str) -> int:
         # dp = [[0 for j in range(len(text2) + 1)] for i in range(len(text1) + 1)]
-        dp = [[0] * (len(text2) + 1) for _ in range(len(text1) + 1)]
+        dp = [[0] * (len(text2)+1) for _ in range(len(text1)+1)] # txt2 is no of columns , txt1 rows
 
-
-        for i in range(len(text1)-1,-1,-1):
-
-            for j in range(len(text2)-1,-1,-1):
-
-                if text1[i]==text2[j]:
-
-                    dp[i][j]= 1+ dp[i+1][j+1] # add one to the diagonal
-                    
-                else:
-                    dp[i][j] = max(dp[i][j+1],dp[i+1][j]) # max( the right ,bottom)
+        for i  in range((len(text1)-1),-1,-1):
+            for j  in range(len(text2)-1,-1,-1):
+                if text1[i] == text2[j]:
+                    dp[i][j] = 1+dp[i+1][j+1] # go diagonally 
+                else :
+                    dp[i][j] = max(dp[i+1][j] , dp[i][j+1]) # down / right 
         return dp[0][0]
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        # dp = [[0] * (len(text2) + 1) for _ in range(len(text1) + 1)]
+
+        # for i in range(len(text1)-1,-1,-1):
+
+        #     for j in range(len(text2)-1,-1,-1):
+
+        #         if text1[i]==text2[j]:
+
+        #             dp[i][j]= 1+ dp[i+1][j+1] # add one to the diagonal
+                    
+        #         else:
+        #             dp[i][j] = max(dp[i][j+1],dp[i+1][j]) # max( the right ,bottom)
+        # return dp[0][0]
+        
 # i = 4, text1[4] = 'e':
 # j = 2, text2[2] = 'e': Match! So, dp[4][2] = 1 + dp[5][3] = 1.
 # j = 1, text2[1] = 'c': No match, so dp[4][1] = max(dp[4][2], dp[5][1]) = 1.
