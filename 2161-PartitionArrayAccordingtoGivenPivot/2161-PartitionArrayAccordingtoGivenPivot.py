@@ -1,8 +1,7 @@
 class Solution:
     def pivotArray(self, nums: List[int], pivot: int) -> List[int]:
-        smaller = []
-        bigger = []
-        equal = []
+        smaller ,bigger , equal= [],[],[]
+   
         for  num in nums:
             if num < pivot :
                 smaller.append(num)
