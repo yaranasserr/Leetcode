@@ -14,9 +14,17 @@ class Solution:
             '10' * (length // 2) + '1' * (length % 2)
         ]
 
-        # Count mismatches for each pattern
-        first = sum(v != b for v, b in zip(valid[0], s))
-        second = sum(v != b for v, b in zip(valid[1], s))
+        # Count mismatches for first pattern
+        first = 0
+        for v, b in zip(valid[0], s):
+            if v != b:
+                first += 1
+
+        # Count mismatches for second pattern
+        second = 0
+        for v, b in zip(valid[1], s):
+            if v != b:
+                second += 1
 
         # Choose the right pattern based on counts of '0' and '1'
         if count_0 > count_1:
