@@ -3,7 +3,7 @@ class Solution:
     # SC: O(n)
     def totalStrength(self, strength):
         n = len(strength)
-        MOD = 1_000_000_007
+        MOD = 10**9 + 7
 
         preSum = [0] * (n + 1)
         prePrefix = [0] * (n + 2)
