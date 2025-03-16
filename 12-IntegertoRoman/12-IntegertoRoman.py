@@ -8,10 +8,10 @@ class Solution(object):
 
         roman = []
         for val , sym in values :
-            if num// val :
-                count = num//val 
-                roman += (sym*count)
-                num = num % val 
+            if num// val : 
+                count = num//val # thousand  # 3749 // 1000 = 3 
+                roman += (sym*count) 
+                num = num % val # # 3749 % 1000 = 749
 
         return "".join(roman)
 # class Solution(object):
@@ -58,4 +58,3 @@ class Solution(object):
 #                 roman.append(values[b] + values[b * 10])
 
 #         return "".join(roman)
-
