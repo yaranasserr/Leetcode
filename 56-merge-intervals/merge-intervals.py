@@ -6,16 +6,17 @@ class Solution:
             return intervals
         
         # Sort intervals by start time
-        intervals.sort()
+        intervals.sort(key = lambda i :i[0]) # sort by start of interval 
         res = [intervals[0]]
 
-        for i in range(1, len(intervals)):
-            a, b = res[-1]  # Last interval in the result
-            c, d = intervals[i]
+        for start,end in intervals[1:]:
+            lastend = res[-1][1]
 
-            if c <= b:  # Overlapping case
-                res[-1] = [a, max(b, d)]
-            else:  # Non-overlapping case
-                res.append([c, d])
+            if start <= lastend :
+                res[-1][1] = max(lastend,end)
+            else:
+                res.append([start,end])
 
         return res
+
+           
