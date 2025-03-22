@@ -1,8 +1,8 @@
-// Last updated: 3/22/2025, 1:16:12 PM
+// Last updated: 3/22/2025, 1:16:26 PM
 class Solution:
     def search(self, nums: List[int], target: int) -> bool:
-        nums= set(nums)
-        nums= list(nums)
+        nums= list(set(nums))
+      
         
         l,r = 0 , len(nums)-1
 
