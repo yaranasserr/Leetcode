@@ -22,14 +22,14 @@ class Solution:
                     count += 1
             return count
 
-        # First pass: Calculate new states and mark changes
+
         for r in range(m):
             for c in range(n):
                 live_neighbors = count_live_neighbors(r, c)
                 
                 # Rule 1 & 3: Live cell dies if <2 or >3 live neighbors
                 if board[r][c] == 1 and (live_neighbors < 2 or live_neighbors > 3):
-                    board[r][c] = -1  # Mark as dead (previously live)
+                    board[r][c] = -1  
                 
                 # Rule 4: Dead cell with exactly 3 live neighbors becomes live
                 elif board[r][c] == 0 and live_neighbors == 3:
