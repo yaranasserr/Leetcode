@@ -1,40 +1,59 @@
-# Last updated: 3/29/2025, 11:55:24 PM
+# Last updated: 3/29/2025, 11:55:45 PM
 class Solution:
-    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        if not intervals:
-            return [newInterval]
+    def search(self, nums: List[int], target: int) -> int:
+        l = 0 
+        r = len(nums) -1 
 
-        l= 0
-        r = len(intervals) -1
-    
+        while l<= r :
+                
+            mid=(l+r)//2
+            if nums[mid] == target :
+                return mid 
+            # determine which half is sorted 
+            # left half is sorted
+            if nums[l] <= nums[mid]:
+                # target in left half 
+                if nums[l]<= target <= nums[mid]:
+                    r = mid -1 
+                else:
+                    l = mid+1  # target in right half 
 
-        while l <= r :
-            mid = (l+r )//2
+            # right half is sorted :
 
-            if intervals[mid][0] < newInterval[0]:
-                l = mid +1
             else:
-                r = mid -1 
+                if nums[mid] <= target <= nums[r]:
+                    l = mid+1
+                else:
+                    r = mid -1 
+        return -1 
 
-        # mid is where the new interval will be places 
 
-        intervals.insert(l,newInterval)
+
+
+
+
+            # if target < mid -> search in right 
+            # if nums[mid] >target  and nums[l] >= nums[r]:
+            #     l = mid +1
+            # elif nums[mid] < target and nums[l] >= nums[r]:
+
+            #     r = mid -1 
+            # elif  nums[l]<nums[r] and nums[mid] < target :
+            #     l = mid+1 
+            # elif  nums[l]<nums[r] and nums[mid] >target :
+            #     r = mid -1 
+
+
+            # else:
+            #     return mid
+
+"""
+[4,5,6,7,0,1,2]
+l = 0 , r = 6 mid = 4 , nums= 7 
+if nums[mid] >target
+l= 4 r = 6 mid= 5 nums = 1
+if nums[mid] >target 
+"""
         
-        
-        # merge intervals
-        res = [intervals[0]]
 
-        for start , end in intervals[1:]:
-            lastend = res[-1][1]
-
-            if start <= lastend:
-                res[-1][1]=max(end,lastend)
-            else:
-                res.append([start,end])
-
-        return res
-
-        
-
-        
         
