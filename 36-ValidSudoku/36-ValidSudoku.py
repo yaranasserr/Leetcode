@@ -1,40 +1,23 @@
-# Last updated: 3/29/2025, 11:54:13 PM
-import numpy as np
+# Last updated: 3/29/2025, 11:54:25 PM
 class Solution:
-    def rotate(self, matrix: List[List[int]]) -> None:
-        """
-        Do not return anything, modify matrix in-place instead.
-        """
-      
+    def setZeroes(self, matrix: List[List[int]]) -> None:
+        m = len(matrix)
+        n = len(matrix[0])
+        rows = [False]*m
+        cols = [False]*n
 
-    #First Transpose matrix
-   
-        
+        for r in range(m) :
+            for c in range(n):
+                if matrix[r][c] == 0 :
+                    rows[r]=True 
+                    cols[c]=True 
+
+        for r in range(m):
+            for c in range(n):
+                if rows[r]:
+                    matrix[r][c] = 0 
+                elif cols[c]:
+                    matrix[r][c] = 0 
+
     
-        n=len(matrix)
-        startC=0
-        for r in range(n):
-            for c in range(startC,n):
-                matrix[r][c] , matrix[c][r] = matrix[c][r] , matrix[r][c]
-            startC+=1
-            
-            
-            
-         #second swap the columns
-       
-        nColSwap=n//2
-        for c in range(nColSwap):
-            for r in range(n):
-                 matrix[r][c],matrix[r][n-c-1]=matrix[r][n-c-1],matrix[r][c]
-                    
-
-            
         
-      
-          
-       
-     
-     
-       
-          
-            
