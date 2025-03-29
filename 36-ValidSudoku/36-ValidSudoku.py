@@ -1,21 +1,33 @@
-# Last updated: 3/29/2025, 11:53:59 PM
+# Last updated: 3/29/2025, 11:54:06 PM
 class Solution:
-    def isValidSudoku(self, board: List[List[str]]) -> bool:
-        rows = defaultdict(set) # key :row index , value : set of numbers in it 
-        columns = defaultdict(set)
-        squares= defaultdict(set)
+    def spiralOrder(self, matrix: List[List[int]]) -> List[int]:
+        res =  []
+        top=left = 0 
+        bottom = len(matrix)
+        right = len(matrix[0]) # last col
 
-        for r in range(9):
-            for c in range(9):
-                if board[r][c] ==".":
-                    continue
-                if (board[r][c] in rows[r] ) or board[r][c] in columns[c] or board[r][c] in squares[(r//3,c//3)]:
-                    return False 
+        while left < right and top < bottom :
+            # top from left to right
+            for i in range(left,right):
+                res.append(matrix[top][i])
+            top+=1
+            # right col from top to bottom 
+            for i in range(top,bottom):
+                res.append(matrix[i][right-1])
+            right -=1 
 
-                rows[r].add(board[r][c])
-                columns[c].add(board[r][c])
-                squares[(r//3,c//3)].add(board[r][c])
+            if not (left<right and top < bottom):
+                break
 
-        return True 
+            # bottom (right to left)
+            for i in range(right-1,left-1,-1):
+                res.append(matrix[bottom-1][i])
+            bottom -=1 
 
+            # left col from bottom to top 
+            for i in range(bottom-1,top-1,-1):
+                res.append(matrix[i][left])
+            left +=1
+
+        return res 
         
