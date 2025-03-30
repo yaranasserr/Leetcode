@@ -1,23 +1,36 @@
-from typing import List
-
+# Last updated: 3/30/2025, 5:41:13 PM
 class Solution:
-    def numberOfPermutations(self, n: int, requirements: List[List[int]]) -> int:
-        r = {e: c for e,c in requirements}
-        c = max(r.values())
-        max_end = max(r)
-        mod = 10 ** 9 + 7
-        dp = [1] + [0] * c
-        for i in range(max_end + 1):
-            dp2 = [0] * (c + 1)
-            if i in r:
-                dp2[r[i]] = sum(dp[max(0, r[i] - i): r[i] + 1]) % mod
-            else:
-                for j in range(c + 1):
-                    dp2[j] = dp[j]
-                    if j: dp2[j] += dp2[j - 1]
-                    if j - i > 0: dp2[j] -= dp[j - i - 1]
-            dp = dp2
-        res = sum(dp) % mod
-        for i in range(max_end + 1, n):
-            res = res * (i + 1) % mod
-        return res
+    def mostBooked(self, n: int, meetings: List[List[int]]) -> int:
+        meetings.sort(key=lambda x:x[0])
+        available =[i for i in range(n)]
+        
+        used = [] # end_time , room no
+        count=[0]*n # count[n] :meetings schdeuled 
+        # meeting room has most meeting schedulded
+        for start,end in meetings:
+            # finish meetings 
+            # which meeting has the smallest end time
+            while used and start >=used[0][0]:
+                _,room=heapq.heappop(used)
+                heapq.heappush(available,room)
+            # no room is aval
+            # pop from used and pput meeing
+            if not available:
+                end_time,room=heapq.heappop(used)
+                end = end_time+(end-start)
+                heapq.heappush(available,room)
+
+            room=heapq.heappop(available)
+            heapq.heappush(used,(end,room))
+
+            count[room] +=1
+
+            # room is available 
+
+        
+
+        return count.index(max(count))
+
+
+        
+        
