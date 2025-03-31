@@ -1,70 +1,35 @@
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
+# Last updated: 3/31/2025, 5:13:05 PM
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
 #         self.val = val
-#         self.next = next
+#         self.left = left
+#         self.right = right
 class Solution:
-    def reverseKGroup(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
-        dummy = ListNode(0,head)
-        groupprev = dummy 
-        while True :
-            kth = self.getkth(groupprev,k)
-            if not kth :
-                break
-            groupnext = kth.next
+    def generateTrees(self, n: int) -> List[Optional[TreeNode]]:
 
-            # reverse group 
-            prev , curr = kth.next , groupprev.next 
-            while curr != groupnext :
-                tmp = curr.next
-                curr.next = prev
-                prev = curr
-                curr = tmp
+        def gen(left,right):
+            if left == right :
+                return [TreeNode(left)]
 
-            tmp = groupprev.next 
-            groupprev.next = kth 
-            groupprev = tmp
+            if left > right :
+                return [None]
 
-        return dummy.next 
-    def getkth(self,curr,k):
-        while curr and k >0 :
-            curr = curr.next 
-            k-=1 
-        return curr
+            res = []
+            #any val can be the root 
+            for val in range(left,right+1):
+                root =TreeNode(val)
+
+                for lefttree in gen(left,val-1): # left subtree 
+                    for righttree in gen(val+1,right):
+                        root = TreeNode(val,lefttree,righttree)
+                        res.append(root)
+
+            return res
 
 
 
-
-        # def get_length_recursive(head: ListNode) -> int:
-        #     if not head:
-        #         return 0
-        #     return 1 + get_length_recursive(head.next)
-
-        # length = get_length_recursive(head)
-        # leftoutnodes = length% k 
-        # groups= length//k 
-        # # do the loop no of groups times 
-        # # reverse each k nodes alone then connect 
-        # dummy = ListNode(0,head)
-        # def reverse(head):
-        #     prev , cur = dummy , head 
-        #     while cur :
-        #         #reverse k nodes 
-        #         nxt = cur.next 
-        #         cur.next = prev 
-        #         prev = cur 
-        #         cur = nxt 
-        #     return prev 
-
-        # for i in range(groups):
-        #     for node in range(k):
-        #         reverse(head)
-
-        # # connecting the revrsed sublists together 
+        return gen(1,n)
 
 
-
-
-
-
-                
+        
