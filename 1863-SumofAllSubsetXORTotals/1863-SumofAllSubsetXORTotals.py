@@ -1,4 +1,4 @@
-# Last updated: 4/6/2025, 3:19:21 PM
+# Last updated: 4/6/2025, 3:30:08 PM
 class Solution:
     def subsetXORSum(self, nums: List[int]) -> int:
     
