@@ -1,3 +1,4 @@
+# Last updated: 4/7/2025, 2:10:20 AM
 class Solution:
     def canPartition(self, nums: List[int]) -> bool:
 
