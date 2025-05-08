@@ -1,3 +1,4 @@
+# Last updated: 5/9/2025, 1:17:46 AM
 class Solution:
   def findMinArrowShots(self, points: list[list[int]]) -> int:
     ans = 0
