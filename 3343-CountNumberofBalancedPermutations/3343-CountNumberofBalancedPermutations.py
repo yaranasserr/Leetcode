@@ -1,4 +1,4 @@
-# Last updated: 5/9/2025, 3:54:59 PM
+# Last updated: 5/9/2025, 4:07:54 PM
 class Solution:
     def countBalancedPermutations(self, num: str) -> int:
         MOD = 10**9 + 7
