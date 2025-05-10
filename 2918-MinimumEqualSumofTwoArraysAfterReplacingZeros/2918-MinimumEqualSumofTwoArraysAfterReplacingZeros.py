@@ -1,13 +1,13 @@
-# Last updated: 5/10/2025, 4:06:28 PM
+# Last updated: 5/10/2025, 4:09:33 PM
 from typing import List
 from collections import Counter
 
 class Solution:
     def minSum(self, nums1: List[int], nums2: List[int]) -> int:
        
-        c1 , c2  = Counter(nums1) ,Counter(nums2)
+        # c1 , c2  = Counter(nums1) ,Counter(nums2)
  
-        z1 , z2 = c1.get(0, 0) ,c2.get(0, 0)
+        z1 , z2 = nums1.count(0) ,nums2.count(0)
 
         sum1 , sum2 = 0,0 
          # the answer will be -1 if there was no 0 in the array with the smaller sum of elements.
