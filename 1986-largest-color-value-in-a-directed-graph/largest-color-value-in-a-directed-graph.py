@@ -8,40 +8,39 @@ class Solution:
         for a, b in edges:
             adj[a].append(b)
 
-        visited = [0] * n  # 0 = unvisited, 1 = visiting, 2 = visited
-        dp = [None] * n    # dp[node] = color frequency list at that node
-        has_cycle = False
+        visit = set()   # nodes that are fully processed
+        cycle = set()   # nodes in the current DFS path (for cycle detection)
+        dp = {}         # cache: dp[node] = [count of colors a-z]
 
         def dfs(node):
-            nonlocal has_cycle
-            if visited[node] == 1:  # cycle detected
-                has_cycle = True
-                return [0] * 26
-            if visited[node] == 2:  # already visited
+            if node in cycle:
+                return None  # cycle detected
+            if node in visit:
                 return dp[node]
 
-            visited[node] = 1
+            cycle.add(node)
             count = [0] * 26
 
             for nei in adj[node]:
                 res = dfs(nei)
-                if has_cycle:
-                    return [0] * 26
+                if res is None:
+                    return None  # cycle
                 for i in range(26):
                     count[i] = max(count[i], res[i])
 
-            color_index = ord(colors[node]) - ord('a')
-            count[color_index] += 1
+            color_idx = ord(colors[node]) - ord('a')
+            count[color_idx] += 1
 
-            visited[node] = 2
             dp[node] = count
+            visit.add(node)
+            cycle.remove(node)
             return count
 
-        max_color_value = 0
+        max_val = 0
         for node in range(n):
-            result = dfs(node)
-            if has_cycle:
-                return -1
-            max_color_value = max(max_color_value, max(result))
+            res = dfs(node)
+            if res is None:
+                return -1  # cycle detected
+            max_val = max(max_val, max(res))
 
-        return max_color_value
+        return max_val
