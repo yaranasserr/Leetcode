@@ -1,15 +1,72 @@
-# Last updated: 5/31/2025, 12:57:09 AM
+# Last updated: 5/31/2025, 11:49:52 PM
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-    def uniqueOccurrences(self, arr: List[int]) -> bool:
-        occurrences = {}
-        for n in arr :
-            occurrences[n] = 1+occurrences.get(n,0)
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        side = []
+
+        q = deque([root])
+
+        while q :
+            level = []
+            for i in range(len(q)):
+                node = q.popleft()
+                if node :
+                    level.append(node.val)
+                    q.append(node.left)
+                    q.append(node.right)
+
+            if level :
+                side.append(level[-1])
+
+        return side
 
 
 
-        # occurrences = {item: arr.count(item) for item in set(arr)} # frequency
-        print(set(occurrences.values()))
-      
-        return len(occurrences.values()) == len(set(occurrences.values()))
-            
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+        
+        # res = []
+        # q=collections.deque([root])
+
+        # while q :
+        #     rightSide=None
+        #     qLen = len(q) # length of current level only 
+        #     for i in range(qLen):
+        #         node = q.popleft()
+        #         if node :
+        #             rightSide = node 
+        #             q.append(node.left)
+        #             q.append(node.right)
+
+        #     if rightSide:
+        #         res.append(rightSide.val)
+        # return res
+
         
