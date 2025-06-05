@@ -1,3 +1,4 @@
+# Last updated: 6/5/2025, 2:46:33 PM
 class Solution:
     def smallestEquivalentString(self, s1: str, s2: str, baseStr: str) -> str:
         # adj list 
