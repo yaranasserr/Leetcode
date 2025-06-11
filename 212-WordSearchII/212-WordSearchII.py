@@ -1,3 +1,4 @@
+# Last updated: 6/11/2025, 1:07:46 PM
 class TrieNode:
     def __init__(self):
         self.children = {}  # key char : value child
