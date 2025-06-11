@@ -1,46 +1,52 @@
-# Last updated: 6/11/2025, 1:09:30 PM
+# Last updated: 6/11/2025, 1:12:58 PM
 from typing import List
+
+class TrieNode:
+    def __init__(self):
+        self.children = {}
+        self.isWord = False
+
+    def addWord(self, word):
+        cur = self
+        for c in word:
+            if c not in cur.children:
+                cur.children[c] = TrieNode()
+            cur = cur.children[c]
+        cur.isWord = True
+
 
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
-        # Step 1: Build the Trie using dictionaries
-        trie = {}
+        root = TrieNode()
         for word in words:
-            node = trie
-            for ch in word:
-                node = node.setdefault(ch, {})
-            node["$"] = word  # "$" is a special marker for the end of a word
+            root.addWord(word)
 
         rows, cols = len(board), len(board[0])
         res = []
+        visited = set()
         directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
-        def backtrack(r, c, node):
-            ch = board[r][c]
-            if ch not in node:
+        def dfs(r, c, node, path):
+            if (r < 0 or c < 0 or r >= rows or c >= cols or
+                (r, c) in visited or board[r][c] not in node.children):
                 return
 
-            next_node = node[ch]
-            word_found = next_node.pop("$", None)
-            if word_found:
-                res.append(word_found)
+            char = board[r][c]
+            visited.add((r, c))
+            node = node.children[char]
+            path += char
 
-            board[r][c] = "*"  # mark visited
+            if node.isWord:
+                res.append(path)
+                node.isWord = False  # Avoid duplicates
 
             for dr, dc in directions:
-                nr, nc = r + dr, c + dc
-                if 0 <= nr < rows and 0 <= nc < cols and board[nr][nc] in next_node:
-                    backtrack(nr, nc, next_node)
+                dfs(r + dr, c + dc, node, path)
 
-            board[r][c] = ch  # restore after backtracking
+            visited.remove((r, c))
 
-            if not next_node:
-                node.pop(ch)  # prune Trie
-
-        # Step 2: Start backtracking from every cell
         for r in range(rows):
             for c in range(cols):
-                if board[r][c] in trie:
-                    backtrack(r, c, trie)
+                dfs(r, c, root, "")
 
         return res
