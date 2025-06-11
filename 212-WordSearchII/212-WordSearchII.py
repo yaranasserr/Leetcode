@@ -1,65 +1,46 @@
-# Last updated: 6/11/2025, 1:07:46 PM
-class TrieNode:
-    def __init__(self):
-        self.children = {}  # key char : value child
-        self.isword = False
-
-
-    def addword(self,word):
-        cur = self # root
-        for c in word :
-            if c not in cur.children:
-                cur.children[c] = TrieNode()
-            cur=cur.children[c]
-
-        cur.isword = True  
+# Last updated: 6/11/2025, 1:09:30 PM
+from typing import List
 
 class Solution:
     def findWords(self, board: List[List[str]], words: List[str]) -> List[str]:
-        root = TrieNode ()
-        for w in words :
-            root.addword(w)
+        # Step 1: Build the Trie using dictionaries
+        trie = {}
+        for word in words:
+            node = trie
+            for ch in word:
+                node = node.setdefault(ch, {})
+            node["$"] = word  # "$" is a special marker for the end of a word
 
-        rows = len(board)
-        cols = len(board[0])
-        res,visit = set() ,set()
+        rows, cols = len(board), len(board[0])
+        res = []
+        directions = [(-1, 0), (1, 0), (0, -1), (0, 1)]
 
-        #i : current char in target word
+        def backtrack(r, c, node):
+            ch = board[r][c]
+            if ch not in node:
+                return
 
-        def dfs(r,c,node,word): 
-       
-            if r < 0 or c < 0 or r == rows or c==cols  or  board[r][c] not in node.children or (r,c) in visit:
-                return 
+            next_node = node[ch]
+            word_found = next_node.pop("$", None)
+            if word_found:
+                res.append(word_found)
 
-            visit.add((r,c)) # CHAR IS FOUND
-            node = node.children[board[r][c]]
-            word += board[r][c]
-            if node.isword:
-                res.add(word)
+            board[r][c] = "*"  # mark visited
 
-                # Define directions for up, down, right, and left
-            directions = [(1, 0), (-1, 0), (0, 1), (0, -1)]
-
-                # Loop through each direction and call dfs
             for dr, dc in directions:
-                dfs(r + dr, c + dc, node, word)
+                nr, nc = r + dr, c + dc
+                if 0 <= nr < rows and 0 <= nc < cols and board[nr][nc] in next_node:
+                    backtrack(nr, nc, next_node)
 
-                # dfs(r+1,node,word) # up
-                # dfs(r-1,c,node,word)  # down
-                # dfs(r,c+1,node,word) #right
-                # dfs(r,c-1,node,word)# left 
+            board[r][c] = ch  # restore after backtracking
 
-            visit.remove((r,c))
-                
+            if not next_node:
+                node.pop(ch)  # prune Trie
 
+        # Step 2: Start backtracking from every cell
         for r in range(rows):
             for c in range(cols):
+                if board[r][c] in trie:
+                    backtrack(r, c, trie)
 
-                dfs(r,c,root,"")
-
-        return list(res)
-
-        
-
-       
-            
+        return res
