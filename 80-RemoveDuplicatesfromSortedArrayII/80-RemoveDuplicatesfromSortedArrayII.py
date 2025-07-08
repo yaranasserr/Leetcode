@@ -1,18 +1,13 @@
-# Last updated: 7/8/2025, 5:03:21 PM
+# Last updated: 7/8/2025, 5:19:57 PM
 class Solution:
-    def removeDuplicates(self, nums: List[int]) -> int:
+    def majorityElement(self, nums: List[int]) -> int:
+        n = len(nums) 
         freq = {}
-        write = 0 
         for n in nums :
             freq[n] = 1 + freq.get(n,0)
-            if freq[n] <=2 :
-                nums[write] = n 
-                write +=1 
 
-        return write 
+        max_key = max(freq, key=freq.get) # freq.get returns the value for each key.
 
-
-
-
+        return max_key
 
         
