@@ -1,19 +1,16 @@
-# Last updated: 7/8/2025, 10:44:18 PM
+# Last updated: 7/8/2025, 11:14:04 PM
 class Solution:
-    def candy(self, ratings: List[int]) -> int:
-        arr = [1] *len(ratings)
+    def reverseWords(self, s: str) -> str:
+        words = s.split()
 
-        for i in range(1,len(ratings)):
-            if ratings[i-1] < ratings[i]:
-                arr[i] = arr[i-1] +1 
+        stack = []
+        arr =[]
+        for w in words :
+            stack.append(w)
 
 
-        for i in range(len(ratings)-2,-1,-1):
-            if ratings[i] > ratings[i+1]:
-                arr[i] = max(arr[i],arr[i+1] +1 )
+        while stack :
+            arr.append(stack.pop())
 
-        return sum(arr)
-
-        
-
+        return " ".join(arr)  
         
