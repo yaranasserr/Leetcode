@@ -1,14 +1,11 @@
-# Last updated: 7/8/2025, 6:03:58 PM
+# Last updated: 7/8/2025, 6:24:18 PM
 class Solution:
     def maxProfit(self, prices: List[int]) -> int:
-        total = 0 
-        min_price =float('inf')
-        for p in prices :
-            if p < min_price :
-                min_price = p 
-            else:
-                total = max(total , p - min_price )
+        pro = 0 
 
-        return total 
+        for i in range(1,len(prices)):
+            if prices[i-1] < prices[i]:
+                pro +=(prices[i]-prices[i-1])
 
+        return pro
         
