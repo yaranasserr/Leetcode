@@ -1,10 +1,14 @@
-# Last updated: 7/8/2025, 5:45:07 PM
+# Last updated: 7/8/2025, 6:03:58 PM
 class Solution:
-    def rotate(self, nums: List[int], k: int) -> None:
-        """
-        Do not return anything, modify nums in-place instead.
-        """
-        k%= len(nums)
-        nums[:] = nums[-k:] +nums[:-k] 
-  
+    def maxProfit(self, prices: List[int]) -> int:
+        total = 0 
+        min_price =float('inf')
+        for p in prices :
+            if p < min_price :
+                min_price = p 
+            else:
+                total = max(total , p - min_price )
+
+        return total 
+
         
