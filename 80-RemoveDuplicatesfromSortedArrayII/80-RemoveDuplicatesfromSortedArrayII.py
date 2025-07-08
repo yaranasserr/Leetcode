@@ -1,5 +1,14 @@
-# Last updated: 7/8/2025, 11:29:15 PM
+# Last updated: 7/8/2025, 11:36:52 PM
 class Solution:
-    def isPalindrome(self, s: str) -> bool:
-        s = ''.join(ch.lower() for ch in s if ch.isalnum())
-        return s == s[::-1]
+    def isSubsequence(self, s: str, t: str) -> bool:
+        i = 0 
+        j = 0 
+        while i < len(s) and j< len(t):
+            if s[i] == t[j]:
+                i+=1
+                j+=1
+            else:
+                j+=1 
+
+        return i == len(s)    
+        
