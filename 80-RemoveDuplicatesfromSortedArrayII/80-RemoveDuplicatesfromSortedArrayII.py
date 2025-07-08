@@ -1,16 +1,7 @@
-# Last updated: 7/8/2025, 11:14:04 PM
+# Last updated: 7/8/2025, 11:14:58 PM
 class Solution:
-    def reverseWords(self, s: str) -> str:
-        words = s.split()
-
-        stack = []
-        arr =[]
-        for w in words :
-            stack.append(w)
-
-
-        while stack :
-            arr.append(stack.pop())
-
-        return " ".join(arr)  
-        
+    def strStr(self, haystack, needle):
+        for i in range(len(haystack) - len(needle) + 1):
+            if haystack[i:i+len(needle)] == needle:
+                return i
+        return -1
