@@ -1,15 +1,17 @@
-from typing import List
-
 class Solution:
     def removeDuplicates(self, nums: List[int]) -> int:
-        freq = {}  
-        write_index = 0 
+        freq = {}
+        write = 0 
+        for n in nums :
+            freq[n] = 1 + freq.get(n,0)
+            if freq[n] <=2 :
+                nums[write] = n 
+                write +=1 
 
-        for num in nums:
-            freq[num] = freq.get(num, 0) + 1
-            if freq[num] <= 2: 
-                nums[write_index] = num
-                write_index += 1
+        return write 
 
-        return write_index  
 
+
+
+
+        
