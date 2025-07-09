@@ -1,14 +1,15 @@
-# Last updated: 7/8/2025, 11:36:52 PM
+# Last updated: 7/9/2025, 2:49:16 PM
 class Solution:
-    def isSubsequence(self, s: str, t: str) -> bool:
-        i = 0 
-        j = 0 
-        while i < len(s) and j< len(t):
-            if s[i] == t[j]:
-                i+=1
-                j+=1
-            else:
-                j+=1 
+    def isAnagram(self, s: str, t: str) -> bool:
+        def frequency(w):
+            freq = {}
+            for i in w :
+                freq[i] = 1+freq.get(i,0)
+            return freq 
 
-        return i == len(s)    
+        freqs = frequency(s)
+        freqt = frequency(t)
+
+        return freqs==freqt
+
         
