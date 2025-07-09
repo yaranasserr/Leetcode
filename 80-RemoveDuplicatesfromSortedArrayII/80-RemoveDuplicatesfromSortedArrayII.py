@@ -1,15 +1,16 @@
-# Last updated: 7/9/2025, 2:49:16 PM
+# Last updated: 7/9/2025, 2:56:21 PM
 class Solution:
-    def isAnagram(self, s: str, t: str) -> bool:
-        def frequency(w):
-            freq = {}
-            for i in w :
-                freq[i] = 1+freq.get(i,0)
-            return freq 
+    def groupAnagrams(self, strs: List[str]) -> List[List[str]]:
+        anagrams = {} # sortedword : list of words 
 
-        freqs = frequency(s)
-        freqt = frequency(t)
+        for s in strs :
+            key="".join(sorted(s))
+            if key not in anagrams :
+                anagrams[key]=[]
 
-        return freqs==freqt
+            anagrams[key].append(s)
 
+        return list(anagrams.values())
+
+            
         
