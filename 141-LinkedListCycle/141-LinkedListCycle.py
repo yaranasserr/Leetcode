@@ -1,21 +1,36 @@
-# Last updated: 7/10/2025, 4:20:11 PM
+# Last updated: 7/10/2025, 4:46:06 PM
 # Definition for singly-linked list.
 # class ListNode:
-#     def __init__(self, x):
-#         self.val = x
-#         self.next = None
-
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
-    def hasCycle(self, head: Optional[ListNode]) -> bool:
-        slow = head 
-        fast = head 
+    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
 
-        while fast and fast.next :
-            slow = slow.next 
-            fast  = fast.next.next 
+        dummy = ListNode()
+        cur = dummy 
 
-            if slow == fast :
-                return True 
+        while list1 and list2 :
+            if list1.val < list2.val :
+                cur.next = list1 
+                list1 = list1.next 
 
-        return False 
+            else: 
+                cur.next = list2 
+                list2 = list2.next 
+
+            cur= cur.next # move forward 
+
+        cur.next = list1 or list2 
+
+        return dummy.next
+
+   
+
+
+
+
+
+            
+        
         
