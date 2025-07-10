@@ -9,20 +9,26 @@ class Node:
 
 class Solution:
     def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        oldtocopy={None:None}
+        # 1- deep copy of the nodes 
+        # hashmap : map original node to new node 
+        oldtocopy ={None:None} # oldnode : copy of node
+        # if cur.next is null : edge case 
         cur = head 
         while cur :
             copy = Node(cur.val)
-            oldtocopy[cur]=copy
-            cur = cur.next
+            oldtocopy[cur] = copy 
+            cur = cur.next 
 
-        # second pass to connect pointers
-        cur = head
-        while cur:
-            copy = oldtocopy[cur]
+        # 2- connect the nodes 
+        cur = head 
+        while cur :
+            copy = oldtocopy[cur] # copy node 
+            # set pointers for copy node
             copy.next = oldtocopy[cur.next]
-            copy.random= oldtocopy[cur.random]
+            copy.random =oldtocopy[cur.random]
             cur = cur.next
 
         return oldtocopy[head]
+
+
         
