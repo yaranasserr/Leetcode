@@ -1,35 +1,37 @@
-# Last updated: 7/10/2025, 6:05:55 PM
-"""
-# Definition for a Node.
-class Node:
-    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
-        self.val = int(x)
-        self.next = next
-        self.random = random
-"""
-
+# Last updated: 7/10/2025, 9:39:47 PM
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
-    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
-        # 1- deep copy of the nodes 
-        # hashmap : map original node to new node 
-        oldtocopy ={None:None} # oldnode : copy of node
-        # if cur.next is null : edge case 
+    def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
+        dummy = ListNode(0,head) # value , next pointer : points to head 
+
+        leftprev = dummy # empty node 
         cur = head 
-        while cur :
-            copy = Node(cur.val)
-            oldtocopy[cur] = copy 
+        # prev: node before left  node
+        # cur on left node 
+
+        for i in range(left-1):
+            leftprev = cur 
             cur = cur.next 
 
-        # 2- connect the nodes 
-        cur = head 
-        while cur :
-            copy = oldtocopy[cur] # copy node 
-            # set pointers for copy node
-            copy.next = oldtocopy[cur.next]
-            copy.random =oldtocopy[cur.random]
-            cur = cur.next
+        prev = None 
+        # reverse 
 
-        return oldtocopy[head]
+        for i in range(right - left +1):
+            nxt = cur.next 
+            cur.next = prev
+            prev = cur
+            cur = nxt 
+
+        leftprev.next.next = cur  # pointer of the node aafter leftprev = node after right 
+        leftprev.next = prev  # prev is right
 
 
+        return dummy.next
+
+
+        
         
