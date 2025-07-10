@@ -1,19 +1,30 @@
+# Last updated: 7/10/2025, 9:11:38 PM
 class Solution:
     def searchRange(self, nums: List[int], target: int) -> List[int]:
-        # First, find the start index of the target
-        start = -1
-        for i in range(len(nums)):
-            if nums[i] == target:
-                start = i
-                break  # exit loop once start is found
         
-        # If target is not found, return [-1, -1]
-        if start == -1:
-            return [-1, -1]
+        def binary_search(nums, target, is_searching_left):
+            left = 0
+            right = len(nums) - 1
+            idx = -1
+            
+            while left <= right:
+                mid = (left + right) // 2
+                
+                if nums[mid] > target:
+                    right = mid - 1
+                elif nums[mid] < target:
+                    left = mid + 1
+                else:
+                    idx = mid
+                    if is_searching_left:
+                        right = mid - 1
+                    else:
+                        left = mid + 1
+            
+            return idx
         
-        # Now find the end index of the target
-        end = start
-        while end + 1 < len(nums) and nums[end + 1] == target:
-            end += 1
+        left = binary_search(nums, target, True)
+        right = binary_search(nums, target, False)
         
-        return [start, end]
+        return [left, right]
+            
