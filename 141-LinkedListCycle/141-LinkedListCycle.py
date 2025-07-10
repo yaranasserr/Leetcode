@@ -1,36 +1,35 @@
-# Last updated: 7/10/2025, 4:46:06 PM
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+# Last updated: 7/10/2025, 6:05:55 PM
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, x: int, next: 'Node' = None, random: 'Node' = None):
+        self.val = int(x)
+        self.next = next
+        self.random = random
+"""
+
 class Solution:
-    def mergeTwoLists(self, list1: Optional[ListNode], list2: Optional[ListNode]) -> Optional[ListNode]:
+    def copyRandomList(self, head: 'Optional[Node]') -> 'Optional[Node]':
+        # 1- deep copy of the nodes 
+        # hashmap : map original node to new node 
+        oldtocopy ={None:None} # oldnode : copy of node
+        # if cur.next is null : edge case 
+        cur = head 
+        while cur :
+            copy = Node(cur.val)
+            oldtocopy[cur] = copy 
+            cur = cur.next 
 
-        dummy = ListNode()
-        cur = dummy 
+        # 2- connect the nodes 
+        cur = head 
+        while cur :
+            copy = oldtocopy[cur] # copy node 
+            # set pointers for copy node
+            copy.next = oldtocopy[cur.next]
+            copy.random =oldtocopy[cur.random]
+            cur = cur.next
 
-        while list1 and list2 :
-            if list1.val < list2.val :
-                cur.next = list1 
-                list1 = list1.next 
-
-            else: 
-                cur.next = list2 
-                list2 = list2.next 
-
-            cur= cur.next # move forward 
-
-        cur.next = list1 or list2 
-
-        return dummy.next
-
-   
-
-
+        return oldtocopy[head]
 
 
-
-            
-        
         
