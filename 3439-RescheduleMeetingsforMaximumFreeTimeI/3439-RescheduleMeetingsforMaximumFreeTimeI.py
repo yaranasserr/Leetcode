@@ -1,4 +1,4 @@
-# Last updated: 7/10/2025, 12:04:05 PM
+# Last updated: 7/10/2025, 12:05:30 PM
 class Solution:
     def maxFreeTime(
         self, eventTime: int, k: int, startTime: List[int], endTime: List[int]
