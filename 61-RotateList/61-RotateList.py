@@ -1,38 +1,44 @@
-from typing import Optional
-
-class ListNode:
-    def __init__(self, val=0, next=None):
-        self.val = val
-        self.next = next
-
+# Last updated: 7/11/2025, 7:14:08 PM
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
 class Solution:
     def rotateRight(self, head: Optional[ListNode], k: int) -> Optional[ListNode]:
         if not head or not head.next or k == 0:
-            return head
+            return head 
 
-        # Step 1: Find the length of the linked list
+        # 1 -> 2 -> 3 ->4 ->5 
+        # iterate till length - k -1 to reach the pivot node (3)
+        # 1-2-3- null 4-5 ->head 
+        # 4-5 -1 -2 3-null 
         length = 1
-        tail = head
-        while tail.next:
-            tail = tail.next
-            length += 1
+        tail = head # start
+        while tail.next :
+            tail = tail.next 
+            length +=1
 
-        # Step 2: Compute the effective rotations needed
-        k = k % length
-        if k == 0:
+        k = k%length 
+        if k == 0 :
             return head
 
-        # Step 3: Use two-pointer technique
-        cur = head 
-      
-        # Move fast k steps ahead
+        # reach the pivot 
+        cur = head
+
         for i in range(length-k-1):
             cur = cur.next 
-        new_head=cur.next
-        cur.next = None
 
-        # be the beginning
-        tail.next = head 
+        new_head = cur.next # 4 
+        cur.next = None # 3 points to None 
+
+        tail.next = head # connect tail to the first node 
         return new_head
 
- 
+        
+
+
+
+
+
+        
