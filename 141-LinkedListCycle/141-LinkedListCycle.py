@@ -1,17 +1,23 @@
-# Last updated: 7/12/2025, 4:25:30 PM
+# Last updated: 7/12/2025, 10:37:45 PM
 class Solution:
-    def findMinArrowShots(self, points: List[List[int]]) -> int:
-        points.sort(key=lambda x:x[1])
+    def simplifyPath(self, path: str) -> str:
+        stack = []
+        path = path.split("/")
 
-        arrows = 1
-        endpoint = points[0][1]
+        for w in path :
+            if w == "" or w ==".":
+                continue
+            if w == "..":
+                if stack:
+                    stack.pop()
 
-        for start,end in points[1:]:
-            if start > endpoint:
-                arrows+=1
-                endpoint =end 
+            else:
+                stack.append(w)
 
-        return arrows 
+        return "/" +"/".join(stack)
+
+            
+            
 
 
         
