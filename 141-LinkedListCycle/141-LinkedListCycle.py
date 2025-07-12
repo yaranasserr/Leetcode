@@ -1,37 +1,20 @@
-# Last updated: 7/10/2025, 9:39:47 PM
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
+# Last updated: 7/12/2025, 4:03:19 PM
 class Solution:
-    def reverseBetween(self, head: Optional[ListNode], left: int, right: int) -> Optional[ListNode]:
-        dummy = ListNode(0,head) # value , next pointer : points to head 
+    def merge(self, intervals: List[List[int]]) -> List[List[int]]:
+        intervals.sort()
+        res =[intervals[0]]
 
-        leftprev = dummy # empty node 
-        cur = head 
-        # prev: node before left  node
-        # cur on left node 
+        for start,end in intervals[1:]:
+            lastend = res[-1][1]
 
-        for i in range(left-1):
-            leftprev = cur 
-            cur = cur.next 
+            if lastend>= start :
+                res[-1][1]= max(end,lastend)
+            else:
+                res.append([start,end])
 
-        prev = None 
-        # reverse 
-
-        for i in range(right - left +1):
-            nxt = cur.next 
-            cur.next = prev
-            prev = cur
-            cur = nxt 
-
-        leftprev.next.next = cur  # pointer of the node aafter leftprev = node after right 
-        leftprev.next = prev  # prev is right
-
-
-        return dummy.next
-
+        return res
 
         
+      
+
         
