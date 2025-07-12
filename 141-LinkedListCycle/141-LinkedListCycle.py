@@ -1,35 +1,17 @@
-# Last updated: 7/12/2025, 4:10:05 PM
+# Last updated: 7/12/2025, 4:25:30 PM
 class Solution:
-    def insert(self, intervals: List[List[int]], newInterval: List[int]) -> List[List[int]]:
-        l = 0 
-        r = len(intervals) -1 
+    def findMinArrowShots(self, points: List[List[int]]) -> int:
+        points.sort(key=lambda x:x[1])
 
-        while l <= r :
-            mid = (l+r)//2
+        arrows = 1
+        endpoint = points[0][1]
 
-            if intervals[mid][0] < newInterval[0]:
-                l = mid+1
-            else:
-                r = mid-1
+        for start,end in points[1:]:
+            if start > endpoint:
+                arrows+=1
+                endpoint =end 
 
-        intervals.insert(l,newInterval) # insert it at l 
-
-
-        res = [intervals[0]]
-        # check for overlapping 
-        for start ,end in intervals[1:]:
-            lastend = res[-1][1]
-
-            if lastend >= start :
-                res[-1][1] = max(end,lastend)
-
-            else:
-                res.append([start,end])
-
-        return res 
-
-            
-
+        return arrows 
 
 
         
