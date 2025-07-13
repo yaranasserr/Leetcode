@@ -1,22 +1,15 @@
-# Last updated: 7/13/2025, 2:18:58 PM
+# Last updated: 7/13/2025, 3:02:42 PM
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-    def partition(self, head: Optional[ListNode], x: int) -> Optional[ListNode]:
-        #dummy nodes pointing to the heads of these new lists.
-        small_dummy = ListNode(0)
-        big_dummy = ListNode(0)
-        small = small_dummy
-        big = big_dummy
+    def maxDepth(self, root: Optional[TreeNode]) -> int:
+        if not root :
+            return 0
 
-        while head:
-            if head.val < x:
-                small.next = head
-                small = small.next
-            else:
-                big.next = head
-                big = big.next
-            head = head.next
+        return  1+ max(self.maxDepth(root.left),self.maxDepth(root.right))
 
-        big.next = None       
-        small.next = big_dummy.next  # Connect the two partitions
-
-        return small_dummy.next
+# bottom up 
