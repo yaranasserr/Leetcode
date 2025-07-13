@@ -1,4 +1,4 @@
-# Last updated: 7/13/2025, 3:02:42 PM
+# Last updated: 7/13/2025, 3:04:48 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -6,10 +6,13 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def maxDepth(self, root: Optional[TreeNode]) -> int:
-        if not root :
-            return 0
+    def isSameTree(self, p: Optional[TreeNode], q: Optional[TreeNode]) -> bool:
+        if not p and not q :
+            return True 
 
-        return  1+ max(self.maxDepth(root.left),self.maxDepth(root.right))
+        if not p and q or not q and p or p.val != q.val :
+            return False 
 
-# bottom up 
+        return (self.isSameTree(p.left,q.left)and self.isSameTree(p.right,q.right))
+        
+        
