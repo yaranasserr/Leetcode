@@ -1,23 +1,25 @@
+# Last updated: 7/14/2025, 12:48:02 AM
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-    def getMinimumDifference(self, root: Optional[TreeNode]) -> int:
-        prev = None
-        minimum_distance = float('inf')
+    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+        def dfs(node,cursum):
+            if not node :
+                return False
 
-        # Helper function for in-order traversal
-        def dfs(node):
-            nonlocal prev, minimum_distance
-            if not node:
-                return
-            # Traverse the left subtree
-            dfs(node.left)
-            # Calculate the minimum difference
-            if prev is not None:
-                minimum_distance = min(minimum_distance, abs(node.val - prev))
-            # Update prev to the current node's value
-            prev = node.val
-            # Traverse the right subtree
-            dfs(node.right)
+            cursum+= node.val 
+            if not node.left and not node.right :
+                return cursum == targetSum 
 
-        # Perform in-order traversal
-        dfs(root)
-        return minimum_distance
+            return dfs(node.left,cursum) or dfs(node.right,cursum)
+
+
+        return dfs(root,0)
+        
+        
+
+        
