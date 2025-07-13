@@ -1,26 +1,32 @@
-# Last updated: 7/13/2025, 4:59:32 PM
-from collections import deque
-
+# Last updated: 7/13/2025, 5:22:31 PM
+# Definition for a binary tree node.
+# class TreeNode:
+#     def __init__(self, val=0, left=None, right=None):
+#         self.val = val
+#         self.left = left
+#         self.right = right
 class Solution:
-    def connect(self, root: 'Node') -> 'Node':
-        if not root:
-            return None  
+    def flatten(self, root: Optional[TreeNode]) -> None:
+        """
+        Do not return anything, modify root in-place instead.
+        """
+        def dfs(root):
+            if not root :
+                return None 
 
-        q = deque([root])  
+            lefttail = dfs(root.left)
+            righttail = dfs(root.right)
 
-        while q:
-            prev = None  # Reset previous node for each level
+            if root.left :
+                lefttail.right = root.right # connecting node 4 to top of node 5
+                root.right = root.left # connecting 1 root to 2 node
+                root.left = None 
 
-            for _ in range(len(q)):  
-                node = q.popleft()  
+            last = righttail or lefttail or root 
 
-                if prev:
-                    prev.next = node  # Connect previous node's next to current node
-                prev = node  # Update previous node
+            return last 
 
-                if node.left:
-                    q.append(node.left) 
-                if node.right:
-                    q.append(node.right)  
+        dfs(root)
 
-        return root  
+        
+        
