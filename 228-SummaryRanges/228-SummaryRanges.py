@@ -1,4 +1,4 @@
-# Last updated: 7/13/2025, 4:03:56 PM
+# Last updated: 7/13/2025, 4:42:16 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -6,23 +6,23 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def buildTree(self, preorder: List[int], inorder: List[int]) -> Optional[TreeNode]:
+    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
         indices = {val:idx for idx,val in enumerate(inorder)}
+        self.ptr = len(postorder)-1
 
-        self.preidx= 0 # idx for root in preorder 
-        def dfs(l,r):
-            if l > r :
-                return None 
+        def dfs(left,right):
+            if left> right:
+                return None
+            root_val=postorder[self.ptr]
+            self.ptr-=1
 
-            root_val = preorder[self.preidx]
-            self.preidx+=1 
-            root = TreeNode(root_val)
-            # Find the index of this root in inorder to split left and right subtrees
-            mid = indices[root_val]
-            root.left=dfs(l,mid-1)
-            root.right=dfs(mid+1,r)
+            root=TreeNode(root_val)
+            mid=indices[root_val]
 
-            return root 
+            root.right=dfs(mid+1,right)
+            root.left=dfs(left,mid-1)
 
-        return dfs(0,len(inorder)-1)
+            return root
+
+        return dfs(0,len(postorder)-1)
         
