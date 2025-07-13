@@ -1,3 +1,4 @@
+# Last updated: 7/13/2025, 5:42:30 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -5,17 +6,23 @@
 #         self.left = left
 #         self.right = right
 class Solution:
-    def hasPathSum(self, root: Optional[TreeNode], targetSum: int) -> bool:
+    def rightSideView(self, root: Optional[TreeNode]) -> List[int]:
+        # return lastnode in the level 
+        q=deque([root])
 
-        def dfs(node,cursum):
-            if not node :
-                return False
-            cursum += node.val 
-            if not node.left and not node.right :
-                return cursum == targetSum
+        res = []
+        while q :
+            level = []
+            for i in range(len(q)):
+                node = q.popleft()
+                if node :
+                    level.append(node.val)
+                    q.append(node.left)
+                    q.append(node.right)
 
-            return(dfs(node.left,cursum) or  dfs(node.right,cursum) )
-        return(dfs(root,0))
+            if level :
+                res.append(level[-1])
 
-            
+        return res 
+
         
