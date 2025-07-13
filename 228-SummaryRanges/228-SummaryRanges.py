@@ -1,4 +1,4 @@
-# Last updated: 7/13/2025, 5:22:31 PM
+# Last updated: 7/13/2025, 5:25:28 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -7,6 +7,9 @@
 #         self.right = right
 class Solution:
     def flatten(self, root: Optional[TreeNode]) -> None:
+        # step 1: attach old right subtree after left subtree
+        # step 2: move left subtree to right
+        # step 3: set left to None
         """
         Do not return anything, modify root in-place instead.
         """
