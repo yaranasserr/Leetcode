@@ -1,28 +1,41 @@
-# Last updated: 7/13/2025, 4:42:16 PM
-# Definition for a binary tree node.
-# class TreeNode:
-#     def __init__(self, val=0, left=None, right=None):
-#         self.val = val
-#         self.left = left
-#         self.right = right
+# Last updated: 7/13/2025, 4:58:26 PM
+"""
+# Definition for a Node.
+class Node:
+    def __init__(self, val: int = 0, left: 'Node' = None, right: 'Node' = None, next: 'Node' = None):
+        self.val = val
+        self.left = left
+        self.right = right
+        self.next = next
+"""
+
 class Solution:
-    def buildTree(self, inorder: List[int], postorder: List[int]) -> Optional[TreeNode]:
-        indices = {val:idx for idx,val in enumerate(inorder)}
-        self.ptr = len(postorder)-1
+    def connect(self, root: 'Node') -> 'Node':
+        if not root :return None
 
-        def dfs(left,right):
-            if left> right:
-                return None
-            root_val=postorder[self.ptr]
-            self.ptr-=1
+        q=deque([root])
+      
 
-            root=TreeNode(root_val)
-            mid=indices[root_val]
+        while q :
+            prev = None
+           
+            for i in range(len(q)):
+                node = q.popleft()
+                if prev :
+                    prev.next = node 
+                prev = node 
+                if node.left :
+                    q.append(node.left)
+                if node.right:
 
-            root.right=dfs(mid+1,right)
-            root.left=dfs(left,mid-1)
+                    q.append(node.right)
 
-            return root
+            if prev :
+                prev.next = None
 
-        return dfs(0,len(postorder)-1)
+           
+
+        return root 
+
+                
         
