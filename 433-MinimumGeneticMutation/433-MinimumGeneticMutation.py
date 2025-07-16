@@ -1,24 +1,26 @@
-import collections
-from typing import List
-
+# Last updated: 7/16/2025, 11:29:15 PM
 class Solution:
-    def minMutation(self, startGene: str, endGene: str, bank: List[str]) -> int:
-        bank = set(bank)  # Convert bank to a set for faster lookups
-        if endGene not in bank:
-            return -1
-        # BFS
-        queue = collections.deque()
-        queue.append((startGene, 0))
-        visited = {startGene}
+    def uniquePathsWithObstacles(self, obstacleGrid: List[List[int]]) -> int:
+        m = len(obstacleGrid)
+        n = len(obstacleGrid[0])
+        cache = {}
+        def dfs(r,c):
+            if r < 0 or c <0 or r>= m or c >=n or obstacleGrid[r][c] == 1 :
+                return 0 
+
+            if r == m-1 and c == n-1 :
+                return 1 
+
+            if (r,c) in cache:
+                return cache[(r,c)]
+
+            cache[(r,c)] = dfs(r+1,c)+dfs(r,c+1)
+
+
+            return cache[(r,c)]
+
+
+        return dfs(0,0)
+
         
-        while queue:
-            gene, level = queue.popleft()
-            if gene == endGene:
-                return level
-            for i in range(len(gene)):
-                for letter in 'ACGT':
-                    new_gene = gene[:i] + letter + gene[i+1:]
-                    if new_gene not in visited and new_gene in bank:
-                        queue.append((new_gene, level + 1))
-                        visited.add(new_gene)
-        return -1
+        
