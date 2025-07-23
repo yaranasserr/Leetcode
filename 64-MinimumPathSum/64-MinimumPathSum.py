@@ -1,26 +1,18 @@
-from typing import List
-
+# Last updated: 7/23/2025, 3:56:41 PM
 class Solution:
-    def minPathSum(self, grid: List[List[int]]) -> int:
-        rows = len(grid)
-        cols = len(grid[0])
-        memo = {}
-
-        def find(r, c):
-            # If out of bounds, return infinity (invalid path)
-            if r >= rows or c >= cols:
-                return float('inf')
+    def combine(self, n: int, k: int) -> List[List[int]]:
+        res = []
+        
+        def backtrack(i, comb):
+            if i > n:
+                if len(comb) == k:
+                    res.append(comb.copy())
+                return
             
-            # If at the bottom-right corner, return its value
-            if r == rows - 1 and c == cols - 1:
-                return grid[r][c]
-
-            # If already computed, return the stored value
-            if (r, c) in memo:
-                return memo[(r, c)]
-
-            # Compute the minimum path sum recursively
-            memo[(r, c)] = grid[r][c] + min(find(r + 1, c), find(r, c + 1))
-            return memo[(r, c)]
-
-        return find(0, 0)
+            comb.append(i)
+            backtrack(i + 1, comb)
+            comb.pop()
+            backtrack(i + 1, comb)
+        
+        backtrack(1, [])
+        return res
