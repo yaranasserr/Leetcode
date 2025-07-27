@@ -1,6 +1,9 @@
-# Last updated: 7/27/2025, 4:46:54 PM
+# Last updated: 7/27/2025, 4:48:27 PM
 class Solution:
-    def rangeBitwiseAnd(self, left: int, right: int) -> int:
-        while (right > left):  # Loop until right is no longer greater than left
-            right = right & (right - 1) # Clear the least significant bit of right
-        return right & left    # Return the bitwise AND of the modified right and left
+    def trailingZeroes(self, n):
+        x   = 5
+        res = 0
+        while x <= n:
+            res += n//x
+            x   *= 5
+        return res
