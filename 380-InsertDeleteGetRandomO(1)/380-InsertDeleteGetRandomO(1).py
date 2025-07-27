@@ -1,13 +1,21 @@
-# Last updated: 7/27/2025, 2:00:04 PM
+# Last updated: 7/27/2025, 2:02:18 PM
 class Solution:
-    def fullJustify(self, words, maxWidth):
-        res, cur, num_of_letters = [], [], 0
-        for w in words:
-            if num_of_letters + len(w) + len(cur) > maxWidth:
-                for i in range(maxWidth - num_of_letters):
-                    cur[i%(len(cur)-1 or 1)] += ' '
-                res.append(''.join(cur))
-                cur, num_of_letters = [], 0
-            cur += [w]
-            num_of_letters += len(w)
-        return res + [' '.join(cur).ljust(maxWidth)]
+    def findSubstring(self, s: str, words: List[str]) -> List[int]:
+        l = len(words[0])
+        total = len(words) * l
+
+        def frequency_map(word_list):
+            freq = {}
+            for ch in word_list:
+                freq[ch] = freq.get(ch, 0) + 1
+            return freq
+
+        main = frequency_map(words)
+        result = []
+
+        for start in range(0, len(s) - total + 1):
+            s_parts = [s[i:i + l] for i in range(start, start + total, l)]
+            if frequency_map(s_parts) == main:
+                result.append(start)
+
+        return result
