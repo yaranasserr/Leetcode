@@ -1,15 +1,19 @@
-# Last updated: 7/27/2025, 4:48:45 PM
-class Solution:
-    def myPow(self, x: float, n: int) -> float:
-
-        def function(base=x, exponent=abs(n)):
-            if exponent == 0:
-                return 1
-            elif exponent % 2 == 0:
-                return function(base * base, exponent // 2)
-            else:
-                return base * function(base * base, (exponent - 1) // 2)
-
-        f = function()
-        
-        return float(f) if n >= 0 else 1/f
+# Last updated: 7/27/2025, 4:49:10 PM
+class Solution(object):
+    def maxPoints(self, points):
+        """
+        :type points: List[List[int]]
+        :rtype: int
+        """
+        ll = len(points) 
+        if ll == 1: return 1
+        elif ll == 2: return 2
+        else:
+            ans = 0
+            for i in list(combinations(points,2)):
+                cnt = 0
+                for j in points:
+                    if (j[1] - i[0][1]) * (i[1][0] - i[0][0]) == (j[0] - i[0][0]) * (i[1][1] - i[0][1]):
+                        cnt += 1
+                ans = max(ans, cnt)
+            return ans
