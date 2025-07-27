@@ -1,59 +1,29 @@
-# Last updated: 7/27/2025, 2:12:40 PM
-# Definition for singly-linked list.
-# class ListNode:
-#     def __init__(self, val=0, next=None):
-#         self.val = val
-#         self.next = next
-# Use slow & fast pointers to find the midpoint.
+# Last updated: 7/27/2025, 2:13:42 PM
+"""
+# Definition for a QuadTree node.
+class Node:
+    def __init__(self, val, isLeaf, topLeft, topRight, bottomLeft, bottomRight):
+        self.val = val
+        self.isLeaf = isLeaf
+        self.topLeft = topLeft
+        self.topRight = topRight
+        self.bottomLeft = bottomLeft
+        self.bottomRight = bottomRight
+"""
 
-# Cut the list into two halves.
-
-# Recursively sort both halves.
-
-# Merge the two sorted halves using a dummy node.
-
-# Time Complexity: O(n log n)
 class Solution:
-    def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
-        # Base case: if list is empty or has only one node, it's already sorted
-        if not head or not head.next:
-            return head
-
-        # Split the list into two halves using slow and fast pointer
-        slow, fast = head, head
-        prev = None
-
-        while fast and fast.next:
-            prev = slow
-            slow = slow.next
-            fast = fast.next.next
-
-        # Cut the list into two halves
-        prev.next = None
-
-        # Recursively sort both halves
-        left = self.sortList(head)
-        right = self.sortList(slow)
-
-        return self.merge(left, right)
-
-    def merge(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
-        dummy = ListNode(0)
-        cur = dummy
-
-        while l1 and l2:
-            if l1.val < l2.val:
-                cur.next = l1
-                l1 = l1.next
-            else:
-                cur.next = l2
-                l2 = l2.next
-            cur = cur.next
-
-        # Append the remaining nodes
-        if l1:
-            cur.next = l1
-        if l2:
-            cur.next = l2
-
-        return dummy.next
+    def construct(self, grid: list[list[int]]) -> 'Node':
+        n = len(grid)
+        def build(r, c, l):
+            v = grid[r][c]
+            for i in range(r, r+l):
+                for j in range(c, c+l):
+                    if grid[i][j] != v:
+                        h = l//2
+                        tl = build(r, c, h)
+                        tr = build(r, c+h, h)
+                        bl = build(r+h, c, h)
+                        br = build(r+h, c+h, h)
+                        return Node(True, False, tl, tr, bl, br)
+            return Node(bool(v), True, None, None, None, None)
+        return build(0, 0, n)
