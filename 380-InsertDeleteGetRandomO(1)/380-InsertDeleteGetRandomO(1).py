@@ -1,18 +1,59 @@
-# Last updated: 7/27/2025, 2:08:39 PM
+# Last updated: 7/27/2025, 2:12:40 PM
+# Definition for singly-linked list.
+# class ListNode:
+#     def __init__(self, val=0, next=None):
+#         self.val = val
+#         self.next = next
+# Use slow & fast pointers to find the midpoint.
+
+# Cut the list into two halves.
+
+# Recursively sort both halves.
+
+# Merge the two sorted halves using a dummy node.
+
+# Time Complexity: O(n log n)
 class Solution:
-    def generateParenthesis(self, n: int) -> List[str]:
-        def dfs(left, right, s):
-            if len(s) == n * 2:
-                res.append(s)
-                return 
+    def sortList(self, head: Optional[ListNode]) -> Optional[ListNode]:
+        # Base case: if list is empty or has only one node, it's already sorted
+        if not head or not head.next:
+            return head
 
-            if left < n:
-                dfs(left + 1, right, s + '(')
+        # Split the list into two halves using slow and fast pointer
+        slow, fast = head, head
+        prev = None
 
-            if right < left:
-                dfs(left, right + 1, s + ')')
+        while fast and fast.next:
+            prev = slow
+            slow = slow.next
+            fast = fast.next.next
 
-        res = []
-        dfs(0, 0, '')
-        return res
-        
+        # Cut the list into two halves
+        prev.next = None
+
+        # Recursively sort both halves
+        left = self.sortList(head)
+        right = self.sortList(slow)
+
+        return self.merge(left, right)
+
+    def merge(self, l1: Optional[ListNode], l2: Optional[ListNode]) -> Optional[ListNode]:
+        dummy = ListNode(0)
+        cur = dummy
+
+        while l1 and l2:
+            if l1.val < l2.val:
+                cur.next = l1
+                l1 = l1.next
+            else:
+                cur.next = l2
+                l2 = l2.next
+            cur = cur.next
+
+        # Append the remaining nodes
+        if l1:
+            cur.next = l1
+        if l2:
+            cur.next = l2
+
+        return dummy.next
