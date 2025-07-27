@@ -1,23 +1,18 @@
-# Last updated: 7/27/2025, 2:04:58 PM
+# Last updated: 7/27/2025, 2:08:39 PM
 class Solution:
-    def totalNQueens(self, n: int) -> int:
-        counter = 0
+    def generateParenthesis(self, n: int) -> List[str]:
+        def dfs(left, right, s):
+            if len(s) == n * 2:
+                res.append(s)
+                return 
 
-        def backtrack(r, cols, diagonals, antidiagonals):
-            nonlocal counter
-            if r == n:
-                counter += 1
-                return
-            for c in range(n):
-                if c in cols or (r + c) in antidiagonals or (r - c) in diagonals:
-                    continue
-                cols.add(c)
-                antidiagonals.add(r + c)
-                diagonals.add(r - c)
-                backtrack(r + 1, cols, diagonals, antidiagonals)
-                cols.remove(c)
-                antidiagonals.remove(r + c)
-                diagonals.remove(r - c)
+            if left < n:
+                dfs(left + 1, right, s + '(')
 
-        backtrack(0, set(), set(), set())
-        return counter
+            if right < left:
+                dfs(left, right + 1, s + ')')
+
+        res = []
+        dfs(0, 0, '')
+        return res
+        
