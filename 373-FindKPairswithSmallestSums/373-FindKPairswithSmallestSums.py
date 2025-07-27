@@ -1,9 +1,10 @@
-# Last updated: 7/27/2025, 4:43:27 PM
+# Last updated: 7/27/2025, 4:44:03 PM
 class Solution:
-    def reverseBits(self, n: int) -> int:
-        result = 0
-        for _ in range(32):
-            bit = n & 1            # Extract the least significant bit
-            result = (result << 1) | bit # Append the bit to the result
-            n >>= 1                # Right-shift n to process the next bit
-        return result
+    def hammingWeight(self, n: int) -> int:
+        res = 0
+
+        for i in range(32):
+            if (n >> i) & 1:
+                res += 1
+
+        return res
