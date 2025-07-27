@@ -1,31 +1,40 @@
-# Last updated: 7/27/2025, 2:16:16 PM
-import heapq
-
+# Last updated: 7/27/2025, 5:07:59 PM
 class Solution:
-    def findMaximizedCapital(self, k: int, w: int, profits: list[int], capital: list[int]) -> int:
-        # Step 1: Create a list of projects (capital, profit)
-        projects = list(zip(capital, profits))
+    def kSmallestPairs(self, nums1: List[int], nums2: List[int], k: int) -> List[List[int]]:
+        from heapq import heappush, heappop
+        m = len(nums1)
+        n = len(nums2)
+
+        ans = []
+        visited = set()
+
+        minHeap = [(nums1[0] + nums2[0], (0, 0))] # sum , i , j 
+        visited.add((0, 0))
+        count = 0
+
+        while k > 0 and minHeap:
+            val, (i, j) = heappop(minHeap)
+            ans.append([nums1[i], nums2[j]])
+
+            if i + 1 < m and (i + 1, j) not in visited:
+                heappush(minHeap, (nums1[i + 1] + nums2[j], (i + 1, j)))
+                visited.add((i + 1, j))
+
+            if j + 1 < n and (i, j + 1) not in visited:
+                heappush(minHeap, (nums1[i] + nums2[j + 1], (i, j + 1)))
+                visited.add((i, j + 1))
+            k = k - 1
         
-        # Step 2: Create a min-heap sorted by capital
-        min_capital_heap = []
-        for c, p in projects:
-            heapq.heappush(min_capital_heap, (c, p))
-        
-        # Step 3: Max-heap for available projects (use negative profits because Python heapq is a min-heap)
-        max_profit_heap = []
-        
-        # Step 4: Try to select up to k projects
-        for _ in range(k):
-            # Move all projects that can be afforded to max-profit heap
-            while min_capital_heap and min_capital_heap[0][0] <= w:
-                c, p = heapq.heappop(min_capital_heap)
-                heapq.heappush(max_profit_heap, -p)
-            
-            # If no project can be afforded, stop
-            if not max_profit_heap:
-                break
-            
-            # Do the most profitable project
-            w += -heapq.heappop(max_profit_heap)
-        
-        return w
+        return ans
+"""
+[1,7,11]
+[2,4,6]
+[sum,i,j]
+minheap =
+[1+2,0,0]   ans {1,2}
+[1+4,0,1]    ans {1,2} ,{1,4}
+[7+2,1,0]
+[7+4,1,1]
+[6+7,1,2] 
+[1+6,0,2] ans {1,2} ,{1,4} {1,6}
+"""
