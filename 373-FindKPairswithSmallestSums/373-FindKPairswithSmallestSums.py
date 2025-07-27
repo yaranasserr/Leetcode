@@ -1,19 +1,19 @@
-# Last updated: 7/27/2025, 4:49:10 PM
-class Solution(object):
-    def maxPoints(self, points):
-        """
-        :type points: List[List[int]]
-        :rtype: int
-        """
-        ll = len(points) 
-        if ll == 1: return 1
-        elif ll == 2: return 2
-        else:
-            ans = 0
-            for i in list(combinations(points,2)):
-                cnt = 0
-                for j in points:
-                    if (j[1] - i[0][1]) * (i[1][0] - i[0][0]) == (j[0] - i[0][0]) * (i[1][1] - i[0][1]):
-                        cnt += 1
-                ans = max(ans, cnt)
-            return ans
+# Last updated: 7/27/2025, 4:49:30 PM
+class Solution:
+    def maxProfit(self, k: int, prices: List[int]) -> int:
+        dp={}
+        def solve(i,flag,count):
+            if i>=len(prices) or count>=k:
+                return 0
+            if (i,flag,count) in dp:
+                return dp[(i,flag,count)]
+            if flag:
+                buy=-prices[i]+solve(i+1,False,count)
+                skip=solve(i+1,True,count)
+                dp[(i,flag,count)]=max(buy,skip)
+            else:
+                sell=prices[i]+solve(i+1,True,count+1)
+                hold=solve(i+1,False,count)
+                dp[(i,flag,count)]=max(sell,hold)
+            return dp[(i,flag,count)]
+        return solve(0,True,0)
