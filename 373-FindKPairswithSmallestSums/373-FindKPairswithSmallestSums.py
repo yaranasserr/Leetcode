@@ -1,9 +1,15 @@
-# Last updated: 7/27/2025, 4:48:27 PM
+# Last updated: 7/27/2025, 4:48:45 PM
 class Solution:
-    def trailingZeroes(self, n):
-        x   = 5
-        res = 0
-        while x <= n:
-            res += n//x
-            x   *= 5
-        return res
+    def myPow(self, x: float, n: int) -> float:
+
+        def function(base=x, exponent=abs(n)):
+            if exponent == 0:
+                return 1
+            elif exponent % 2 == 0:
+                return function(base * base, exponent // 2)
+            else:
+                return base * function(base * base, (exponent - 1) // 2)
+
+        f = function()
+        
+        return float(f) if n >= 0 else 1/f
