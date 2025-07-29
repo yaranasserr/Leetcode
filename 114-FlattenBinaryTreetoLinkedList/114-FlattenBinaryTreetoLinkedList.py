@@ -1,3 +1,4 @@
+# Last updated: 7/29/2025, 8:48:09 PM
 # Definition for a binary tree node.
 # class TreeNode:
 #     def __init__(self, val=0, left=None, right=None):
@@ -6,32 +7,31 @@
 #         self.right = right
 class Solution:
     def flatten(self, root: Optional[TreeNode]) -> None:
+        # step 1: attach old right subtree after left subtree
+        # step 2: move left subtree to right
+        # step 3: set left to None
         """
         Do not return anything, modify root in-place instead.
         """
-        def dfs(root):
-            if not root:
+        def dfs(node):
+            if not node :
                 return None
-            leftTail =dfs(root.left)
-            rightTail = dfs(root.right)
 
-            if root.left :
-                leftTail.right = root.right
-                root.right = root.left 
-                root.left = None
+            lefttail = dfs(node.left) # last node in left subtree
+            righttail = dfs(node.right)
+            if node.left:
+                lefttail.right = node.right
+                node.right = node.left 
+                node.left = None 
 
-                    # if no righsubtree -> return left subtree
-                    #if no leftsubtree -> return root
-            last = rightTail or leftTail or root 
+            last = righttail or lefttail or node
+
 
             return last 
 
         dfs(root)
 
+   
 
-                
-
-
-            
-
-    
+        
+        
