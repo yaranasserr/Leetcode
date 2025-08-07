@@ -22,11 +22,7 @@ class Solution:
             current = 0 if (i, j) in blocked else fruits[i][j]
             
             
-            max_next = max(
-                dfs2(i+1, j-1),
-                dfs2(i+1, j),
-                dfs2(i+1, j+1)
-            )
+            max_next = max(dfs2(i+1, j-1),dfs2(i+1, j),dfs2(i+1, j+1))
             
             memo2[(i, j)] = current + max_next
             return memo2[(i, j)]
@@ -48,11 +44,7 @@ class Solution:
             current = 0 if (i, j) in blocked else fruits[i][j]
             
           
-            max_next = max(
-                dfs3(i-1, j+1),
-                dfs3(i, j+1), 
-                dfs3(i+1, j+1)
-            )
+            max_next = max(dfs3(i-1, j+1),dfs3(i, j+1), dfs3(i+1, j+1))
             
             memo3[(i, j)] = current + max_next
             return memo3[(i, j)]
