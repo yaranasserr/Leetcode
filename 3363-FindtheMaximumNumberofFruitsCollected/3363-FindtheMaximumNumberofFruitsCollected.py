@@ -1,14 +1,11 @@
-# Last updated: 8/7/2025, 1:38:52 PM
+# Last updated: 8/7/2025, 1:40:14 PM
 class Solution:
     def maxCollectedFruits(self, fruits: List[List[int]]) -> int:
         n = len(fruits)
         
-        # child 1: (0,0) main diagonal
-        child1_total = sum(fruits[i][i] for i in range(n))
-        
-        # mark cells that child 1 visited 
-        blocked = set((i, i) for i in range(n))
-    
+        child1_total = sum(fruits[i][i] for i in range(n)) # child 1: (0,0) main diagonal
+         
+        blocked = set((i, i) for i in range(n)) # mark cells that child 1 visited   
         memo2 = {}
         def dfs2(i, j):
             if i == n-1 and j == n-1:
