@@ -1,26 +1,18 @@
-# Last updated: 9/1/2025, 3:46:46 PM
+# Last updated: 9/1/2025, 3:47:56 PM
 import heapq
 
 class Solution:
     def maxAverageRatio(self, classes: list[list[int]], extraStudents: int) -> float:
-        pq = []
-        for p, t in classes:
-            gain = self.findGain(p, t)
-            heapq.heappush(pq, (-gain, p, t))
-        
-        while extraStudents > 0:
+        # build heap with negative gain
+        pq = [(-( (p+1)/(t+1) - p/t ), p, t) for p, t in classes]
+        heapq.heapify(pq)
+
+        # distribute students
+        for _ in range(extraStudents):
             gain, p, t = heapq.heappop(pq)
-            p += 1
-            t += 1
-            new_gain = self.findGain(p, t)
+            p, t = p+1, t+1
+            new_gain = (p+1)/(t+1) - p/t
             heapq.heappush(pq, (-new_gain, p, t))
-            extraStudents -= 1
-        
-        res = 0.0
-        while pq:
-            _, p, t = heapq.heappop(pq)
-            res += p / t
-        return res / len(classes)
-    
-    def findGain(self, p: int, t: int) -> float:
-        return (p + 1) / (t + 1) - p / t
+
+        # calculate average
+        return sum(p/t for _, p, t in pq) / len(classes)
