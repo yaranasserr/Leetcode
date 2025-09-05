@@ -1,4 +1,4 @@
-# Last updated: 9/2/2025, 7:14:35 PM
+# Last updated: 9/5/2025, 5:26:19 PM
 class Solution:
     def numberOfPairs(self, points: List[List[int]]) -> int:
         ans = 0
