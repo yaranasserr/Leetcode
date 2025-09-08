@@ -1,4 +1,4 @@
-# Last updated: 9/8/2025, 11:17:08 AM
+# Last updated: 9/8/2025, 11:17:17 AM
 class Solution:
     def getNoZeroIntegers(self, n: int) -> List[int]:
         def no_zero(x: int) -> bool:
