@@ -1,10 +1,10 @@
 class Solution:
     def sortVowels(self, s: str) -> str:
-        arr = []
+        arr = [ch for ch in s if ch in "aeoiuAEOIU" ]
 
-        for ch in s :
-            if ch in "aeoiuAEOIU":
-                arr.append(ch)
+        # for ch in s :
+        #     if ch in "aeoiuAEOIU":
+        #         arr.append(ch)
 
         arr.sort()
         s = list(s)
