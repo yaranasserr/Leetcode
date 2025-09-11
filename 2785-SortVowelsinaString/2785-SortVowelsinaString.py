@@ -1,11 +1,11 @@
-# Last updated: 9/11/2025, 3:52:24 PM
+# Last updated: 9/11/2025, 3:53:04 PM
 class Solution:
     def sortVowels(self, s: str) -> str:
-        arr = []
+        arr = [ch for ch in s if ch in "aeoiuAEOIU" ]
 
-        for ch in s :
-            if ch in "aeoiuAEOIU":
-                arr.append(ch)
+        # for ch in s :
+        #     if ch in "aeoiuAEOIU":
+        #         arr.append(ch)
 
         arr.sort()
         s = list(s)
