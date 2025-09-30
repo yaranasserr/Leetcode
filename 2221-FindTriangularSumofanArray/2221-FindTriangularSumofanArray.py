@@ -1,3 +1,4 @@
+# Last updated: 9/30/2025, 11:38:25 AM
 class Solution:
     def triangularSum(self, nums: List[int]) -> int:
             # for i in range( numRows-1):
