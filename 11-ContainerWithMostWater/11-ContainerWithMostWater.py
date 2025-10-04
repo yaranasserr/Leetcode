@@ -1,18 +1,19 @@
+# Last updated: 10/4/2025, 1:25:48 PM
 class Solution:
     def maxArea(self, height: List[int]) -> int:
-        left, right = 0, len(height) - 1
-        max_area = 0
-
-        while left < right:
-            # Calculate the current area
-            current_area = min(height[left], height[right]) * (right - left) # width
-            # Update the maximum area
-            max_area = max(max_area, current_area)
-
-            # Move the pointer pointing to the shorter line
-            if height[left] < height[right]:
-                left += 1
+        maxarea = 0
+        l = 0 
+        r = len(height)-1
+        while l<=r :
+            current_area = min(height[l],height[r])* (r-l)
+            maxarea = max(maxarea,current_area)
+            if height[l] < height[r]:
+                l+=1
             else:
-                right -= 1
+                r-=1 
 
-        return max_area
+        return maxarea 
+
+
+
+        
