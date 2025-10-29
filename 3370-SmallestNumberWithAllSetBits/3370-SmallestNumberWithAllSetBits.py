@@ -1,4 +1,4 @@
-# Last updated: 10/29/2025, 11:38:50 AM
+# Last updated: 10/29/2025, 11:39:24 AM
 class Solution:
     def smallestNumber(self, n: int) -> int:
         x = 1
