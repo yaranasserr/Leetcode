@@ -1,22 +1,9 @@
-class Solution(object):
-    def plusOne(self, digits):
-        """
-        :type digits: List[int]
-        :rtype: List[int]
-        """
-        s=""
-        for i in digits:
-            s = s + str(i)
-            
-            
-        number = int(s)
-        number = number + 1
+class Solution:
+    def plusOne(self, digits: List[int]) -> List[int]:
+        return [int(c) for c in str(int("".join(map(str, digits))) + 1)]
+
         
-        result = []
+
+
+
         
-        for c in str(number):
-            result.append(int(c))
-            
-        return result
-        
-            
