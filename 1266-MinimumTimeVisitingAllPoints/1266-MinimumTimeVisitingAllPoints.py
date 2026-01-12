@@ -1,4 +1,4 @@
-# Last updated: 1/12/2026, 12:28:16 PM
+# Last updated: 1/12/2026, 6:47:34 PM
 1class Solution:
 2    def minTimeToVisitAllPoints(self, points: List[List[int]]) -> int:
 3        ans = 0
